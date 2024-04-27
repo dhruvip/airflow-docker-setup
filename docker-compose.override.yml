@@ -1,0 +1,16 @@
+version: '3.5'
+services:
+  # Adding a new service in existing docker compose setup
+  metabase:
+    image: metabase/metabase:v0.46.6.4
+    volumes:
+      - ./include/metabase-data:/metabase-data
+    environment:
+      - MB_DB_FILE=/metabase-data/me
+    networks:
+      - airflow
+
+  # updating configurations of existing services 
+  scheduler:
+    volumes:
+      - ./include/scripts:/usr/local/airflow/scripts:rw
