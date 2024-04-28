@@ -2,5 +2,8 @@
 - Clean the project with:
     ``` make clean ```
 - Run the project with:
-    ``` make run ```
-- All the dags go into dags folder
+    ``` make init up ```
+- Reload scheduler and worker
+    ``` make reload  ```
+- Build custom image 
+    ``` make build ```
