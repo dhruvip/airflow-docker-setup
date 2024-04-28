@@ -2,7 +2,7 @@
 clean-all:
 	$(info --- clean all images and volumes)
 	docker-compose -f docker-compose.yaml down --volumes --rmi all
-	rm -rf logs/ database/ *.pid *.cfg webserver_config.py
+	rm -rf logs/ *.pid *.cfg webserver_config.py
 
 .PHONY: clean
 clean:
@@ -18,9 +18,15 @@ up:
 .PHONY: init
 init:
 	$(info --init)
-	mkdir -p logs plugins dags
-	sudo chown 50000:0 dags logs plugins
+	mkdir -p logs plugins dags config
+	source ./.env
 
-.PHONY: run
-run: init up
+.PHONY: reload
+reload:
+	$(info -- reload)
+	@docker container restart $$(docker ps -aqf "name=scheduler_1$$") $$(docker ps -aqf "name=worker_1$$")
 
+.PHONY: build
+build:
+	$(info --- docker compose down)
+	docker build -t mycustomimage .
