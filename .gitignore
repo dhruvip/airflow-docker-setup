@@ -1,2 +1,4 @@
 logs/
 .terraform/*
+dags/__*
+dags/*/__*
